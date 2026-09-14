@@ -26,6 +26,9 @@
         <a href="#skills">기술 스택</a>
         <a href="#evidence">프로젝트 검증</a>
         <a href="#contact">연락처</a>
+        <button type="button" id="motion-toggle-btn" class="motion-btn" aria-pressed="false" title="애니메이션 및 움직임 끄기/켜기">
+          <span class="motion-icon">⚡</span> <span id="motion-btn-text">모션 끄기</span>
+        </button>
       </nav>
     </header>
 
@@ -312,6 +315,39 @@
         <p class="proj-summary">
           1인 가구를 위한 냉장고 식재료 관리, AI 영수증/식품영양성분 연동, 그리고 실시간 1:1 채팅 기반 수다방 커뮤니티 웹 서비스
         </p>
+
+        <!-- 접근 가능한 핵심 상호작용: 상세 개발 일지 펼치기/접기 버튼 (T01-C19, T01-C20, T01-C21) -->
+        <div class="interactive-action-area">
+          <button type="button" id="toggle-log-btn" class="log-toggle-btn" aria-expanded="false" aria-controls="extended-log-panel">
+            <span class="btn-icon">🔍</span>
+            <span id="toggle-btn-text">주요 구현 상세 내역 펼치기</span>
+            <span class="chevron-icon">▼</span>
+          </button>
+        </div>
+
+        <div id="extended-log-panel" class="extended-log-panel" hidden>
+          <div class="panel-inner">
+            <h4 class="panel-title">🛡️ 주한태 담당 코어 모듈 & 보안/트랜잭션 설계 상세</h4>
+            <ul class="panel-list">
+              <li>
+                <strong>식약처 공공 API 파싱 (`nutrition-api.js`):</strong>
+                인증키를 클라이언트 코드에 노출하지 않도록 프록시 엔드포인트 설계 및 실시간 5대 영양소 추출 로직 구현
+              </li>
+              <li>
+                <strong>영수증 Vision AI 비동기 파이프라인 (`receipt-api.js`):</strong>
+                이미지 Base64 인코딩 후 멀티모달 API 호출 ➔ OCR 데이터 정제 ➔ 다중 식재료 배치 등록 트랜잭션 완성
+              </li>
+              <li>
+                <strong>Firestore 보안 규칙 & 1:1 채팅 리스너 (`chat-api.js`):</strong>
+                권한 없는 타 유저의 채팅방 접근 차단, <code>onSnapshot</code> 언마운트 시 메모리 누수 방지 구독 해제 처리
+              </li>
+              <li>
+                <strong>커스텀 모달 & 모바일 제스처 시스템:</strong>
+                브라우저 <code>alert</code> 취약점 제거 및 모바일 터치 이벤트 기반 스와이프 인터랙션 완성
+              </li>
+            </ul>
+          </div>
+        </div>
         
         <div class="log-highlights">
           <div class="log-item">
@@ -379,5 +415,48 @@
       <p class="footer-sub">Designed with Minimal & Clean Security Aesthetics</p>
     </footer>
   </div>
+
+  <!-- 카드 5 상호작용 및 움직임 제어 스크립트 -->
+  <script>
+    // 1. 상세 구현 내역 펼치기/접기 (마우스 Click + 키보드 Enter/Space 완벽 지원)
+    const toggleBtn = document.getElementById('toggle-log-btn');
+    const logPanel = document.getElementById('extended-log-panel');
+    const toggleBtnText = document.getElementById('toggle-btn-text');
+
+    if (toggleBtn && logPanel) {
+      toggleBtn.addEventListener('click', function() {
+        const isExpanded = toggleBtn.getAttribute('aria-expanded') === 'true';
+        if (isExpanded) {
+          logPanel.hidden = true;
+          toggleBtn.setAttribute('aria-expanded', 'false');
+          toggleBtnText.textContent = '주요 구현 상세 내역 펼치기';
+          toggleBtn.classList.remove('active');
+        } else {
+          logPanel.hidden = false;
+          toggleBtn.setAttribute('aria-expanded', 'true');
+          toggleBtnText.textContent = '상세 내역 접기';
+          toggleBtn.classList.add('active');
+        }
+      });
+    }
+
+    // 2. 모션 줄이기/끄기 토글 (사용자 애니메이션 선택권 - T01-C22)
+    const motionToggleBtn = document.getElementById('motion-toggle-btn');
+    const motionBtnText = document.getElementById('motion-btn-text');
+
+    if (motionToggleBtn) {
+      motionToggleBtn.addEventListener('click', function() {
+        const isReduced = document.body.classList.toggle('reduce-motion');
+        motionToggleBtn.setAttribute('aria-pressed', isReduced ? 'true' : 'false');
+        if (isReduced) {
+          motionBtnText.textContent = '모션 켜기';
+          motionToggleBtn.style.background = 'rgba(56, 189, 248, 0.2)';
+        } else {
+          motionBtnText.textContent = '모션 끄기';
+          motionToggleBtn.style.background = '';
+        }
+      });
+    }
+  </script>
 </body>
 </html>

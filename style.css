@@ -122,6 +122,26 @@ body {
   color: var(--accent-cyan);
 }
 
+.motion-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--card-border);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: var(--transition);
+}
+
+.motion-btn:hover {
+  border-color: var(--accent-cyan);
+  color: #fff;
+}
+
 /* Hero Section */
 .hero-card {
   display: flex;
@@ -592,8 +612,106 @@ body {
 .proj-summary {
   color: var(--text-muted);
   font-size: 0.95rem;
-  margin-bottom: 22px;
+  margin-bottom: 20px;
   line-height: 1.6;
+}
+
+/* 카드 5 상호작용 UI: 상세 일지 펼치기/접기 버튼 */
+.interactive-action-area {
+  margin-bottom: 20px;
+}
+
+.log-toggle-btn {
+  background: rgba(56, 189, 248, 0.08);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  color: var(--accent-cyan);
+  font-family: var(--font-base);
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 10px 18px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: var(--transition);
+}
+
+.log-toggle-btn:hover {
+  background: rgba(56, 189, 248, 0.16);
+  border-color: var(--accent-cyan);
+  transform: translateY(-1px);
+}
+
+.log-toggle-btn .chevron-icon {
+  font-size: 0.75rem;
+  transition: transform 0.25s ease;
+}
+
+.log-toggle-btn.active .chevron-icon {
+  transform: rotate(180deg);
+}
+
+.extended-log-panel {
+  background: rgba(11, 15, 25, 0.6);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-sm);
+  padding: 18px 20px;
+  margin-bottom: 24px;
+}
+
+.panel-title {
+  font-size: 0.98rem;
+  color: #fff;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.panel-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.panel-list li {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+  position: relative;
+  padding-left: 14px;
+}
+
+.panel-list li::before {
+  content: '▸';
+  color: var(--accent-cyan);
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.panel-list strong {
+  color: var(--text-main);
+}
+
+.panel-list code {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 2px 5px;
+  border-radius: 4px;
+  color: #38bdf8;
+}
+
+/* 움직임 줄이기 / 끄기 모드 (T01-C22) */
+body.reduce-motion *,
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 .log-highlights {
