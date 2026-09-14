@@ -457,6 +457,20 @@
         }
       });
     }
+
+    // 3. 키보드 Tab 이동 시 활성화된 요소로 화면 자동 부드럽게 스크롤 이동
+    document.addEventListener('keyup', function(e) {
+      if (e.key === 'Tab') {
+        const active = document.activeElement;
+        if (active && active !== document.body && active !== document.documentElement) {
+          active.scrollIntoView({
+            behavior: document.body.classList.contains('reduce-motion') ? 'auto' : 'smooth',
+            block: 'center',
+            inline: 'nearest'
+          });
+        }
+      }
+    });
   </script>
 </body>
 </html>
