@@ -83,19 +83,22 @@ body {
   z-index: 1;
 }
 
-/* Header */
+/* Header (스크롤 시 최상단 고정 Sticky Navigation) */
 .header {
+  position: sticky;
+  top: 14px;
+  z-index: 100;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 14px 22px;
-  background: rgba(19, 26, 42, 0.55);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: rgba(13, 17, 26, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--card-border);
   border-radius: var(--radius-md);
   margin-bottom: 28px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
 
 .logo {
